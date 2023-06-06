@@ -46,6 +46,13 @@ class _QuestionsAppState extends State<QuestionsApp> {
     }
   }
 
+  void _restart() {
+    setState(() {
+      _QuestionSelected = 0;
+      _totalScore = 0;
+    });
+  }
+
   bool get hasQuestionSelected {
     return _QuestionSelected < _questionsList.length;
   }
@@ -63,7 +70,7 @@ class _QuestionsAppState extends State<QuestionsApp> {
                   questionSelected: _QuestionSelected,
                   respond: _respond,
                 )
-              : ResultQuestions(_totalScore)),
+              : ResultQuestions(_totalScore, _restart)),
     );
   }
 }
