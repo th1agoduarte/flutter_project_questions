@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_questions/result_questions.dart';
-import './question.dart';
-import './button_respond.dart';
-import 'result_questions.dart';
+import './result_questions.dart';
+import './quiz.dart';
 
 main() => runApp(QuestionsApp());
 
@@ -43,15 +42,10 @@ class _QuestionsAppState extends State<QuestionsApp> {
             title: Text("Perguntas"),
           ),
           body: hasQuestionSelected
-              ? Column(
-                  children: [
-                    Question(_questionsList[_QuestionSelected]['question']
-                        .toString()),
-                    ...(_questionsList[_QuestionSelected]['answer']
-                            as List<String>)
-                        .map((answer) => ButtonRespond(answer, _respond))
-                        .toList()
-                  ],
+              ? Quiz(
+                  questionsList: _questionsList,
+                  questionSelected: _QuestionSelected,
+                  respond: _respond,
                 )
               : ResultQuestions("Parabéns!")),
     );
