@@ -6,14 +6,7 @@ main() => runApp(QuestionsApp());
 
 class _QuestionsAppState extends State<QuestionsApp> {
   var _QuestionSelected = 0;
-  void _respond() {
-    setState(() {
-      _QuestionSelected++;
-    });
-    print(_QuestionSelected);
-  }
-
-  final questions = [
+  final _questionsList = const [
     {
       'question': 'Qual é a sua cor favorita?',
       'answer': ['Preto', 'Vermelho', 'Verde', 'Branco'],
@@ -27,6 +20,18 @@ class _QuestionsAppState extends State<QuestionsApp> {
       'answer': ['Maria', 'João', 'Leo', 'Pedro'],
     },
   ];
+  void _respond() {
+    if (hasQuestionSelected) {
+      setState(() {
+        _QuestionSelected++;
+      });
+    }
+    print(_QuestionSelected);
+  }
+
+  bool get hasQuestionSelected {
+    return _QuestionSelected < _questionsList.length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +40,18 @@ class _QuestionsAppState extends State<QuestionsApp> {
         appBar: AppBar(
           title: Text("Perguntas"),
         ),
-        body: Column(
-          children: [
-            Question(questions[_QuestionSelected]['question'].toString()),
-            ...(questions[_QuestionSelected]['answer'] as List<String>)
-                .map((answer) => ButtonRespond(answer, _respond))
-                .toList()
-          ],
-        ),
+        body: hasQuestionSelected
+            ? Column(
+                children: [
+                  Question(
+                      _questionsList[_QuestionSelected]['question'].toString()),
+                  ...(_questionsList[_QuestionSelected]['answer']
+                          as List<String>)
+                      .map((answer) => ButtonRespond(answer, _respond))
+                      .toList()
+                ],
+              )
+            : null,
       ),
     );
   }
