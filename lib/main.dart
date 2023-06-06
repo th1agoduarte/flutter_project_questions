@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+import './button_respond.dart';
 
 main() => runApp(QuestionsApp());
 
 class _QuestionsAppState extends State<QuestionsApp> {
-  var QuestionSelected = 0;
+  var _QuestionSelected = 0;
   void _respond() {
     setState(() {
-      QuestionSelected++;
+      _QuestionSelected++;
     });
-    print(QuestionSelected);
+    print(_QuestionSelected);
   }
 
-  final List<String> questions = [
-    'Qual é a sua cor favorita?',
-    'Qual é o seu animal favorito?',
+  final questions = [
+    {
+      'question': 'Qual é a sua cor favorita?',
+      'answer': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'question': 'Qual é o seu animal favorito?',
+      'answer': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'question': 'Qual é o seu instrutor favorito?',
+      'answer': ['Maria', 'João', 'Leo', 'Pedro'],
+    },
   ];
 
   @override
@@ -26,21 +37,10 @@ class _QuestionsAppState extends State<QuestionsApp> {
         ),
         body: Column(
           children: [
-            Question(questions[QuestionSelected]),
-            ElevatedButton(
-              child: Text('Resposta 1'),
-              onPressed: _respond,
-            ),
-            ElevatedButton(
-              child: Text('Resposta 2'),
-              onPressed: () {
-                print('Pergunta respondida 2!');
-              },
-            ),
-            ElevatedButton(
-              child: Text('Resposta 3'),
-              onPressed: () => print('Pergunta respondida 3!'),
-            ),
+            Question(questions[_QuestionSelected]['question'].toString()),
+            ...(questions[_QuestionSelected]['answer'] as List<String>)
+                .map((answer) => ButtonRespond(answer, _respond))
+                .toList()
           ],
         ),
       ),

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Question extends StatelessWidget {
+class ButtonRespond extends StatelessWidget {
   final String text;
-  Question(this.text);
-
+  final void Function() onSelected;
+  ButtonRespond(this.text, this.onSelected);
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.all(10),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 28),
-        textAlign: TextAlign.center,
+      child: ElevatedButton(
+        child: Text(text),
+        onPressed: onSelected,
       ),
     );
   }
