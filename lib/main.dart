@@ -7,27 +7,43 @@ main() => runApp(QuestionsApp());
 
 class _QuestionsAppState extends State<QuestionsApp> {
   var _QuestionSelected = 0;
+  var _totalScore = 0;
   final _questionsList = const [
     {
       'question': 'Qual é a sua cor favorita?',
-      'answer': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+      'answer': [
+        {'text': 'Preto', 'score': 10},
+        {'text': 'Vermelho', 'score': 5},
+        {'text': 'Verde', 'score': 3},
+        {'text': 'Branco', 'score': 1},
+      ]
     },
     {
       'question': 'Qual é o seu animal favorito?',
-      'answer': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+      'answer': [
+        {'text': 'Coelho', 'score': 10},
+        {'text': 'Cobra', 'score': 5},
+        {'text': 'Elefante', 'score': 3},
+        {'text': 'Leão', 'score': 1},
+      ]
     },
     {
       'question': 'Qual é o seu instrutor favorito?',
-      'answer': ['Maria', 'João', 'Leo', 'Pedro'],
+      'answer': [
+        {'text': 'Maria', 'score': 10},
+        {'text': 'João', 'score': 5},
+        {'text': 'Leo', 'score': 3},
+        {'text': 'Pedro', 'score': 1},
+      ]
     },
   ];
-  void _respond() {
+  void _respond(int score) {
     if (hasQuestionSelected) {
       setState(() {
         _QuestionSelected++;
+        _totalScore += score;
       });
     }
-    print(_QuestionSelected);
   }
 
   bool get hasQuestionSelected {
@@ -47,7 +63,7 @@ class _QuestionsAppState extends State<QuestionsApp> {
                   questionSelected: _QuestionSelected,
                   respond: _respond,
                 )
-              : ResultQuestions("Parabéns!")),
+              : ResultQuestions(_totalScore)),
     );
   }
 }
