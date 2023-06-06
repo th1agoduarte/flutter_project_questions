@@ -37,22 +37,26 @@ class _QuestionsAppState extends State<QuestionsApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Perguntas"),
-        ),
-        body: hasQuestionSelected
-            ? Column(
-                children: [
-                  Question(
-                      _questionsList[_QuestionSelected]['question'].toString()),
-                  ...(_questionsList[_QuestionSelected]['answer']
-                          as List<String>)
-                      .map((answer) => ButtonRespond(answer, _respond))
-                      .toList()
-                ],
-              )
-            : null,
-      ),
+          appBar: AppBar(
+            title: Text("Perguntas"),
+          ),
+          body: hasQuestionSelected
+              ? Column(
+                  children: [
+                    Question(_questionsList[_QuestionSelected]['question']
+                        .toString()),
+                    ...(_questionsList[_QuestionSelected]['answer']
+                            as List<String>)
+                        .map((answer) => ButtonRespond(answer, _respond))
+                        .toList()
+                  ],
+                )
+              : Center(
+                  child: Text(
+                    "Parabéns!",
+                    style: TextStyle(fontSize: 28),
+                  ),
+                )),
     );
   }
 }
