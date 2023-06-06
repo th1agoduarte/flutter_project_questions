@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_questions/result_questions.dart';
 import './question.dart';
 import './button_respond.dart';
+import 'result_questions.dart';
 
 main() => runApp(QuestionsApp());
 
@@ -51,12 +53,7 @@ class _QuestionsAppState extends State<QuestionsApp> {
                         .toList()
                   ],
                 )
-              : Center(
-                  child: Text(
-                    "Parabéns!",
-                    style: TextStyle(fontSize: 28),
-                  ),
-                )),
+              : ResultQuestions("Parabéns!")),
     );
   }
 }
